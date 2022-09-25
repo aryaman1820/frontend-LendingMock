@@ -5,6 +5,7 @@ function LoanStatus() {
   return (
     <>
     <UserNavbar/>
+    <div>This is the Status page</div>
     </>
   )
 }
