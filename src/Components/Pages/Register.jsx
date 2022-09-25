@@ -56,7 +56,7 @@ export default function Register() {
     .then(response =>{
       console.log(response.data)
       toast.success("Customer Registered Successfuly")
-      navigate("/login")
+      navigate("/")
     }).catch(Error =>{
       console.log("Error",Error)
       toast.error("Some Error Occured :(")

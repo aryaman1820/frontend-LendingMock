@@ -11,6 +11,7 @@ import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import UserNavbar from '../navigation/UserNavbar';
+import { useState } from 'react';
 
 
 
@@ -32,6 +33,11 @@ const theme = createTheme();
 
 
 export default function EducationLoan() {
+
+  const [education,setEducation] = useState({
+    
+  })
+
   const handleSubmit = (event) => {
     event.preventDefault();
   };
@@ -59,14 +65,18 @@ export default function EducationLoan() {
           <Box component="form" onSubmit={handleSubmit} sx={{ mt: 3 }}>
             <Grid container spacing={2}>
               <Grid item xs={12}  sm={6}>
-                <TextField
+              <TextField
                   autoComplete="given-name"
                   name="name"
                   required
                   fullWidth
                   id="name"
+                  type="text"
                   label="Full Name"
-                  autoFocus
+                  value={sessionStorage.getItem("name")}
+                  InputProps={{
+                    readOnly: true,
+                  }}
                 />
               </Grid>
               <Grid item xs={12}  sm={6}>
@@ -77,7 +87,10 @@ export default function EducationLoan() {
                   label="Date of Birth"
                   name="dateOfBirth"
                   type="date"
-                  defaultValue="2017-05-24"
+                  value={sessionStorage.getItem("dateOfBirth")}
+                  InputProps={{
+                    readOnly: true,
+                  }}
                   
                 />
               </Grid>
@@ -89,27 +102,37 @@ export default function EducationLoan() {
                   label="Phone Number"
                   name="phoneNumber"
                   type="number"
+                  value={sessionStorage.getItem("phoneNumber")}
+                  InputProps={{
+                    readOnly: true,
+                  }}
                 />
               </Grid>
               <Grid item xs={12}  sm={6}>
                 <TextField
-                  required
                   fullWidth
                   id="email"
                   label="Email Address"
                   name="email"
                   type="email"
-                  autoComplete="email"
+                  value={sessionStorage.getItem("email")}
+                  InputProps={{
+                    readOnly: true,
+                  }}
                 />
               </Grid>
               <Grid item xs={12}  sm={6}>
                 <TextField
                   required
                   fullWidth
-                  name="aadhar"
+                  name="adhar"
                   label="Aadhaar Number"
-                  type="number"
-                  id="aadhar"
+                  type="text"
+                  id="adhar"
+                  value={sessionStorage.getItem("adhar")}
+                  InputProps={{
+                    readOnly: true,
+                  }}
                   
                 />
               </Grid>
@@ -121,6 +144,10 @@ export default function EducationLoan() {
                   label="PAN Number"
                   type="text"
                   id="panNumber"
+                  value={sessionStorage.getItem("panNumber")}
+                  InputProps={{
+                    readOnly: true,
+                  }}
                   
                 />
               </Grid>
@@ -128,10 +155,14 @@ export default function EducationLoan() {
                 <TextField
                   required
                   fullWidth
-                  name="offerIntrest"
+                  name="rateOfInterest"
                   label="Intrest rate"
                   type="text"
-                  id="offerIntrest"
+                  id="rateOfInterest"
+                  value={sessionStorage.getItem("rateOfInterest")}
+                  InputProps={{
+                    readOnly: true,
+                  }}
                   
                 />
               </Grid>
@@ -143,17 +174,20 @@ export default function EducationLoan() {
                   label="Loan Amount"
                   type="text"
                   id="loanAmount"
-                  
-                />
+                  value={sessionStorage.getItem("loanAmount")}
+                  InputProps={{
+                    readOnly: true,
+                  }}
+                  />
               </Grid>
               <Grid item xs={12}>
                   <TextField
                       required
                       fullWidth
-                      name="loanAddress"
-                      label="Loan Address"
+                      name="collegeName"
+                      label="College name"
                       type="text"
-                      id="loanAddress"
+                      id="collegeName"
                     />
                 </Grid>
             </Grid>
