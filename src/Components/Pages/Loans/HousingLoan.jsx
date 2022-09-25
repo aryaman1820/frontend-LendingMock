@@ -12,6 +12,9 @@ import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import UserNavbar from '../navigation/UserNavbar';
 import { useState } from 'react';
+import axios from 'axios';
+import {toast} from "react-toastify"
+import { useNavigate } from 'react-router-dom';
 
 
 
@@ -34,12 +37,34 @@ const theme = createTheme();
 
 export default function Housingloan() {
 
-  const [housing,setHousing] = useState({
+  const navigate = useNavigate()
 
+  const baseUrl = "http://localhost:8082/v1/housingLoan/"
+
+  const [housing,setHousing] = useState({
+    address:"",
+    customerMobileNo:sessionStorage.getItem("phoneNumber"),
+    loanName:sessionStorage.getItem("loanName"),
+    loanamount:sessionStorage.getItem("loanAmount"),
+    rateOfInterest:sessionStorage.getItem("rateOfIntrest")
   })
+
+  const handleChange = (e) =>{
+    setHousing({...housing,[e.target.name]:e.target.value})
+  }
 
   const handleSubmit = (event) => {
     event.preventDefault();
+
+    axios.post(baseUrl,housing)
+    .then((response) =>{
+      console.log(response.data)
+
+      if(response.data.address){
+        toast.success("Applied for Housing Loan")
+        navigate("/status")
+      }
+    })
   };
 
   return (
@@ -189,6 +214,7 @@ export default function Housingloan() {
                       label="Address"
                       type="text"
                       id="address"
+                      onChange={handleChange}
                     />
                 </Grid>
             </Grid>

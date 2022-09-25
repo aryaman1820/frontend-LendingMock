@@ -58,6 +58,11 @@ export default function Login() {
         if(response.data){
           toast.success("Login Successful")
           sessionStorage.setItem("phoneNumber",response.data.phoneNumber)
+          sessionStorage.setItem("name",response.data.name)
+          sessionStorage.setItem("adhar",response.data.adhar)
+          sessionStorage.setItem("panNumber",response.data.panNumber)
+          sessionStorage.setItem("dateOfBirth",response.data.dateOfBirth)
+          sessionStorage.setItem("email",response.data.email)
           navigate("/offer")
         }
       }).catch(Error =>{

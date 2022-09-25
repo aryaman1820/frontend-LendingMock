@@ -11,7 +11,10 @@ import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import UserNavbar from '../navigation/UserNavbar';
-import { useState,useRef } from 'react';
+import { useState} from 'react';
+import { useNavigate } from 'react-router-dom';
+import axios from 'axios';
+import {toast} from 'react-toastify'
 
 
 function Copyright(props) {
@@ -33,12 +36,33 @@ const theme = createTheme();
 
 export default function VehicleLoan() {
 
+  const navigate = useNavigate()
+
+  const baseUrl = "http://localhost:8082/v1/vehicleLoan/"
+
   const [vehicle,setVehicle] = useState({
-    
+    vehicleName:"",
+    customerMobileNo:sessionStorage.getItem("phoneNumber"),
+    loanName:sessionStorage.getItem("loanName"),
+    loanamount:sessionStorage.getItem("loanAmount"),
+    rateOfInterest:sessionStorage.getItem("rateOfIntrest")
   })
+
+  const handleChange = (e) =>{
+    setVehicle({...vehicle,[e.target.name]:e.target.value})
+  }
 
   const handleSubmit = (event) => {
     event.preventDefault();
+
+    axios.post(baseUrl,vehicle)
+    .then((response)=>{
+      console.log(response.data)
+      if(response.data.vehicleName){
+        toast.success("Applied for Vehicle Loan")
+        navigate("/status")
+      }
+    })
   };
 
   return (
@@ -184,6 +208,7 @@ export default function VehicleLoan() {
                       label="Vehicle Name"
                       type="text"
                       id="vehicleName"
+                      onChange={handleChange}
                     />
                 </Grid>
             </Grid>
