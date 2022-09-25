@@ -12,6 +12,9 @@ import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import UserNavbar from '../navigation/UserNavbar';
 import { useState } from 'react';
+import axios from 'axios';
+import {toast} from "react-toastify"
+import { useNavigate } from 'react-router-dom';
 
 
 
@@ -34,12 +37,35 @@ const theme = createTheme();
 
 export default function EducationLoan() {
 
+  const navigate = useNavigate()
+
+  const baseUrl = "http://localhost:8082/v1/educationalLoan/"
+
   const [education,setEducation] = useState({
-    
+    collegeName:"",
+    customerMobileNo:sessionStorage.getItem("phoneNumber"),
+    loanName:sessionStorage.getItem("loanName"),
+    loanamount:sessionStorage.getItem("loanAmount"),
+    rateOfInterest:sessionStorage.getItem("rateOfIntrest")
   })
+
+  const handleChange = (e) =>{
+    setEducation({...education,[e.target.name]:e.target.value})
+  }
 
   const handleSubmit = (event) => {
     event.preventDefault();
+
+    axios.post(baseUrl,education)
+    .then((response)=>{
+      console.log(response)
+
+      if(response.data.collegeName){
+        toast.success("Applied for Education loan")
+        navigate("/status")
+      }
+    })
+
   };
 
   return (
@@ -188,6 +214,7 @@ export default function EducationLoan() {
                       label="College name"
                       type="text"
                       id="collegeName"
+                      onChange={handleChange}
                     />
                 </Grid>
             </Grid>
