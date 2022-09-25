@@ -33,7 +33,6 @@ const theme = createTheme();
 export default function AboutsPage() {
   return (
     <>
-    <UserNavbar/>
     <ThemeProvider theme={theme}>
       <Container component="main" maxWidth="xs">
         <CssBaseline />
