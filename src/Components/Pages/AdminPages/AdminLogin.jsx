@@ -10,11 +10,8 @@ import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
-import DefaultNavbar from './navigation/DefaultNavbar';
-import { useNavigate } from 'react-router-dom';
-import { useState } from 'react';
-import {toast} from 'react-toastify';
-import axios from 'axios';
+import DefaultNavbar from '../navigation/DefaultNavbar';
+
 
 function Copyright(props) {
   return (
@@ -31,32 +28,9 @@ function Copyright(props) {
 
 const theme = createTheme();
 
-export default function Login() {
-  const baseUrl = "http://localhost:8091/v1/customer"
-  const navigate = useNavigate()
-  const [login, setLogin] = useState({
-    phoneNumber:"",
-    dateOfBirth:"2022-09-25"
-  })
-
-  const handleInput = (e) =>{
-    setLogin({...login,[e.target.name]:e.target.value})
-  }
-
+export default function AdminLogin() {
   const handleSubmit = (event) => {
     event.preventDefault();
-    if(login.phoneNumber==="" || login.dateOfBirth===""){
-      toast.error("The Text fields cannot be blank!!!")
-    }
-    else if(isNaN(login.phoneNumber) || (login.phoneNumber.length<10 || login.phoneNumber.length>10)){
-      toast.error("Please enter a valid Phone Number")
-    }
-    else{
-      axios.post(baseUrl+'/login',login)
-      .then(response =>{
-        console.log(response.data)
-      })
-    }
   };
 
   return (
@@ -77,31 +51,28 @@ export default function Login() {
             <LockOutlinedIcon />
           </Avatar>
           <Typography component="h1" variant="h5">
-            Sign in
+            Admin Login
           </Typography>
-          <Box component="form" onSubmit={handleSubmit} sx={{ mt: 3 }} noValidate>
+          <Box component="form" onSubmit={handleSubmit} sx={{ mt: 3 }}>
             <Grid container spacing={2}>
               <Grid item xs={12}>
                 <TextField
-                  name="phoneNumber"
+                  name="adminName"
                   required
                   fullWidth
-                  id="phoneNumber"
-                  label="Phone Number"
-                  onChange={handleInput}
-                  value={login.phoneNumber}
+                  id="adminName"
+                  label="Admin Username"
+                  autoFocus
                 />
               </Grid>
               <Grid item xs={12}>
                 <TextField
                   required
                   fullWidth
-                  id="dateOfBirth"
-                  label="Date of Birth"
-                  name="dateOfBirth"
-                  type="date"
-                  onChange={handleInput}
-                  value={login.dateOfBirth}
+                  id="password"
+                  label="password"
+                  name="password"
+                  type="password"
                 />
               </Grid>
             </Grid>

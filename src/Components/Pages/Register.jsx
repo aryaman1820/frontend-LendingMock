@@ -11,6 +11,8 @@ import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import DefaultNavbar from './navigation/DefaultNavbar';
+import { useState } from 'react';
+import {toast} from 'react-toastify'
 
 function Copyright(props) {
   return (
@@ -28,8 +30,35 @@ function Copyright(props) {
 const theme = createTheme();
 
 export default function Register() {
+
+  const [customer, setCustomer] = useState({
+    name:"",
+    phoneNumber:"",
+    email:"",
+    dateOfBirth:"",
+    adhar:"",
+    panNumber:""
+  })
+
+  const handleInput = (e) =>{
+    setCustomer({...customer,[e.target.name]:[e.target.value]})
+  }
+
   const handleSubmit = (event) => {
     event.preventDefault();
+
+    if(customer.name==="" ||customer.phoneNumber==="" || customer.email==="" || customer.dateOfBirth==="" || customer.adhar==="" || customer.panNumber===""){
+      toast.error("The given fields cannot be empty !!!")
+    }
+    else{
+      if(isNaN(customer.phoneNumber) || (customer.phoneNumber.length<10 || customer.phoneNumber.length>10)){
+        toast.error("Enter a valid Phone Number")
+      }
+
+      if(isNaN(customer.adhar) || (customer.adhar.length<12 || customer.adhar.length>12)){
+        toast.error("Enter a valid Adhar number")
+      }
+    }
   };
 
   return (
@@ -52,7 +81,7 @@ export default function Register() {
           <Typography component="h1" variant="h5">
             Sign up
           </Typography>
-          <Box component="form" onSubmit={handleSubmit} sx={{ mt: 3 }}>
+          <Box component="form" onSubmit={handleSubmit} sx={{ mt: 3 }} noValidate>
             <Grid container spacing={2}>
               <Grid item xs={12}>
                 <TextField
@@ -61,7 +90,9 @@ export default function Register() {
                   required
                   fullWidth
                   id="name"
+                  value={customer.name}
                   label="Full Name"
+                  onChange={handleInput}
                   autoFocus
                 />
               </Grid>
@@ -73,6 +104,8 @@ export default function Register() {
                   label="Date of Birth"
                   name="dateOfBirth"
                   type="date"
+                  value={customer.dateOfBirth}
+                  onChange={handleInput}
                   defaultValue="2017-05-24"
                   
                 />
@@ -85,6 +118,8 @@ export default function Register() {
                   label="Phone Number"
                   name="phoneNumber"
                   type="number"
+                  value={customer.phoneNumber}
+                  onChange={handleInput}
                 />
               </Grid>
               <Grid item xs={12}>
@@ -95,7 +130,8 @@ export default function Register() {
                   label="Email Address"
                   name="email"
                   type="email"
-                  autoComplete="email"
+                  value={customer.email}
+                  onChange={handleInput}
                 />
               </Grid>
               <Grid item xs={12}>
@@ -106,7 +142,8 @@ export default function Register() {
                   label="Aadhaar Number"
                   type="number"
                   id="aadhar"
-                  
+                  value={customer.adhar}
+                  onChange={handleInput}                  
                 />
               </Grid>
               <Grid item xs={12}>
@@ -117,7 +154,8 @@ export default function Register() {
                   label="PAN Number"
                   type="text"
                   id="panNumber"
-                  
+                  value={customer.panNumber}
+                  onChange={handleInput}                  
                 />
               </Grid>
             </Grid>
