@@ -11,7 +11,7 @@ import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import UserNavbar from '../navigation/UserNavbar';
-
+import { useState,useRef } from 'react';
 
 
 function Copyright(props) {
@@ -32,6 +32,11 @@ const theme = createTheme();
 
 
 export default function VehicleLoan() {
+
+  const [vehicle,setVehicle] = useState({
+    
+  })
+
   const handleSubmit = (event) => {
     event.preventDefault();
   };
@@ -66,7 +71,10 @@ export default function VehicleLoan() {
                   fullWidth
                   id="name"
                   label="Full Name"
-                  autoFocus
+                  value={sessionStorage.getItem("name")}
+                  InputProps={{
+                    readOnly: true,
+                  }}
                 />
               </Grid>
               <Grid item xs={12}  sm={6}>
@@ -77,7 +85,10 @@ export default function VehicleLoan() {
                   label="Date of Birth"
                   name="dateOfBirth"
                   type="date"
-                  defaultValue="2017-05-24"
+                  value={sessionStorage.getItem("dateOfBirth")}
+                  InputProps={{
+                    readOnly: true,
+                  }}
                   
                 />
               </Grid>
@@ -89,6 +100,10 @@ export default function VehicleLoan() {
                   label="Phone Number"
                   name="phoneNumber"
                   type="number"
+                  InputProps={{
+                    readOnly: true,
+                  }}
+                  value={sessionStorage.getItem("phoneNumber")}
                 />
               </Grid>
               <Grid item xs={12}  sm={6}>
@@ -99,18 +114,24 @@ export default function VehicleLoan() {
                   label="Email Address"
                   name="email"
                   type="email"
-                  autoComplete="email"
+                  InputProps={{
+                    readOnly: true,
+                  }}
+                  value={sessionStorage.getItem("email")}
                 />
               </Grid>
               <Grid item xs={12}  sm={6}>
                 <TextField
                   required
                   fullWidth
-                  name="aadhar"
+                  name="adhar"
                   label="Aadhaar Number"
                   type="number"
-                  id="aadhar"
-                  
+                  id="adhar"
+                  InputProps={{
+                    readOnly: true,
+                  }}
+                  value={sessionStorage.getItem("adhar")}
                 />
               </Grid>
               <Grid item xs={12}  sm={6}>
@@ -121,18 +142,24 @@ export default function VehicleLoan() {
                   label="PAN Number"
                   type="text"
                   id="panNumber"
-                  
+                  InputProps={{
+                    readOnly: true,
+                  }}
+                  value={sessionStorage.getItem("panNumber")}
                 />
               </Grid>
               <Grid item xs={12}  sm={6}>
                 <TextField
                   required
                   fullWidth
-                  name="offerIntrest"
+                  name="rateOfInterest"
                   label="Intrest rate"
                   type="text"
-                  id="offerIntrest"
-                  
+                  id="rateOfInterest"
+                  InputProps={{
+                    readOnly: true,
+                  }}
+                  value={sessionStorage.getItem("rateOfInterest")}
                 />
               </Grid>
               <Grid item xs={12}  sm={6}>
@@ -143,17 +170,20 @@ export default function VehicleLoan() {
                   label="Loan Amount"
                   type="text"
                   id="loanAmount"
-                  
+                  InputProps={{
+                    readOnly: true,
+                  }}
+                  value={sessionStorage.getItem("loanAmount")}
                 />
               </Grid>
               <Grid item xs={12}>
                   <TextField
                       required
                       fullWidth
-                      name="loanAddress"
-                      label="Loan Address"
+                      name="vehicleName"
+                      label="Vehicle Name"
                       type="text"
-                      id="loanAddress"
+                      id="vehicleName"
                     />
                 </Grid>
             </Grid>
